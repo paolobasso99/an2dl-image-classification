@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "an2dl-image-classification"
+version = "0.1.0"
+description = ""
+authors = ["Paolo Basso <bassopaolo99@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "an2dl_image_classification"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.11"
+numpy = "^1.23.4"
+matplotlib = "^3.6.2"
+typer = {extras = ["all"], version = "^0.7.0"}
+tensorflow = "^2.10.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^22.10.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
