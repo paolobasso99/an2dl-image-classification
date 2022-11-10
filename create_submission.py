@@ -1,6 +1,6 @@
 import os
 from distutils.dir_util import copy_tree
-from shutil import make_archive, rmtree
+from shutil import make_archive, rmtree, unpack_archive
 
 import typer
 from rich.progress import Progress, SpinnerColumn, TextColumn, TimeElapsedColumn
@@ -43,6 +43,17 @@ def main():
         raise typer.Exit(code=1)
 
     print('You selected the model ' + model)
+
+    if model[-4:] == '.zip':
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            TimeElapsedColumn(),
+        ) as progress:
+            progress.add_task(description="Unzipping model...", total=None)
+            unpack_archive('models/'+model, 'models')
+        print("Model unzipped, please select again which model to submit")
+        typer.run(main)
 
     with Progress(
         SpinnerColumn(),
