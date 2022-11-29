@@ -1,0 +1,15 @@
+
+\section{Experiments}
+In this section, we want to list some experiments that we did but ended up not using in the final model.
+
+\subsection{CNN Model}
+The first approach to the challenge was to design a tailor-made CNN model as seen during lectures. Starting with only two convolutional layers we obtained underwhelming results on the classification task, then obtained slight improvements at first with hyperparameter tuning and later with the addition of more convolutional layers to the network.\\
+These experiments were run during the first days of the competition, without a real comparison to the other models developed by other teams. Once we noticed a substantial gap in terms of accuracy we decided to move on to different techniques such as using a pre-trained supernet with $weight\  initialization$  and $fine\ tuning$.
+
+\subsection{VGG \& EfficientNetV2}
+The approach to supernets started with two increasingly bigger models seen during lectures: VGG19\cite{VGG} and EffNet\cite{effnet}. The former one brought a slight increase in accuracy so it was quickly replaced with the latter which was on par with other teams' performance, until the decision to use ConvNeXt.
+
+\subsection{Models Ensemble}
+Another strategy that we tried, but we ended up not using in our final models, is one of ensembling models. In particular, we tried the "Integrated Stacking Model" technique where multiple networks are run in parallel and their results concatenated for another fully connected classification network \cite{ensemble}. We tried ensembling different famous architectures, favouring smaller models.
+
+This technique was very fruitful for most of the models we tried but not for the final, most performant, one so we ended up not using it in our final submission.

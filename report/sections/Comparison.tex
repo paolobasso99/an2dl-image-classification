@@ -1,0 +1,21 @@
+\section{Comparison between models}
+To conclude, we compare the results obtained by the best models, for each technique used.
+The validation accuracy is based on the split of the dataset in train and validation set, using as validation a percentage of the dataset varying from 10\% to 20\%.
+The accuracy on the training set reached 99\% in almost any case, apart from ConvNeXtLarge, in which it stabilized at 90\%.
+The test was made using TTA (\ref{TestTimeAug}) and only for those models reaching a high validation accuracy.
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{lcc} 
+        \hline
+        Model & Validation Accuracy (\%) & Test Accuracy (\%)\\ 
+        \hline
+        ConvNeXtLarge  & 95.93 & 95.48 \\
+        Custom CNN & 70.58 & \textbackslash \\
+        VGG19 & 75.28 & \textbackslash \\
+        EfficientNetV2 & 91.56 & 88.41 \\ 
+        Ensemble & 95.48 & 93.85 \\
+     \hline
+    \end{tabular}
+    \caption{Validation and Test accuracy comparison}
+
+\end{table}

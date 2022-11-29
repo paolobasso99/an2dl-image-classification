@@ -1,0 +1,29 @@
+\section{Final model}
+\subsection{Hyperparameters}
+\begin{itemize}
+    \item {\textit{VALIDATION\_SPLIT}: we split the dataset with a ratio of 0.125, in order to have 3100 images for training and 442 images for validation.}
+    \item {\textit{BATCH\_SIZE}: we used mini-batch gradient descent with a batch size of 64 samples.}
+    \item {\textit{MAX\_EPOCHS}: we used a maximum of 200 epochs both for the first and the second training, but due to early stopping this maximum was never reached.}
+    \item {\textit{EARLY\_STOPPING\_PATIENCE}: we used a patience of 19 epochs in the first training and one of 23 epochs in the second. We noticed that the greater the second patience, the better the performance, being careful not to overdo it to avoid overfitting.}
+    \item {\textit{OPTIMIZER}: we used Adam Optimization because it is faster, requires less memory and achieves good performances.}
+    \item {\textit{LEARNING\_RATE}: in the first training we started from the default value of the Adam optimizer, which is 1e-3 (0.001). In the second training, we used a much lower learning rate, that is 5.2e-5 (0.000052), because we want our model to adapt itself to the new dataset in small steps to avoid losing the features it has already learned.}
+    \item {\textit{LOSS}: considering that it is a multi-class classification problem, we used Categorical Cross Entropy in order to have a probability over all the classes for each image.}
+    \item {\textit{UNFREEZE}: we unfreeze 670 layers, so we unfreeze the whole model, with the exception of batch normalization layers.}
+\end{itemize}
+
+\subsection{ConvNeXtLarge}
+To achieve our best results we used the Transfer Learning technique with the pre-trained model: ConvNeXtLarge. It is a ConvNet which borrows some ideas from Transformers. \cite{convnext}
+We used this model by initializing it with the imagenet weights.
+
+\subsection{Model Layers}
+We built a Sequential model by passing a list of layers to the Sequential constructor. The first layer is the \textit{Input} layer, to instantiate a Keras tensor. The second layer is the \textit{DataAugmentation}, which is used to apply the transformations mentioned above. The third is the \textit{model\_supernet} layer, to use the ConvNeXtLarge pre-trained model. The \textit{Flatten} layer is used to flatten the input, but without affecting the batch size. A first \textit{Dropout} layer with a rate of 0.39 is used to reduce overfitting. Then, we used two \textit{Dense} layers with 1024 and 512 units respectively; in both layers we used a "relu" activation function, and a "He uniform" variance scaling initializer. Furthermore, in order to limit overfitting, we constrain the model through \textit{L1L2} regularization. Another \textit{Dropout} layer to further reduce overfitting. Finally, the last \textit{Dense} layer with 8 units (that is the number of classes), a "softmax" activation function and a "Glorot uniform" initializer.
+
+\subsection{Model training}
+Even though we used the weights of the imagenet dataset only as initialization and we retrained the whole model we still followed a two-step process because it yielded better results: first we trained only the classification head, keeping the supernet frozen, and then we retrained the whole model unfreezing all the layers (with the exception of batch normalization layers).
+
+\subsection{Test-Time Augmentation}
+\label{TestTimeAug}
+To further improve our model accuracy, we perform a self-ensemble technique called Test Time Augmentation \cite{tta}. This technique involves creating multiple augmented copies of each image in the test set, having the model make a prediction for each, and then returning an ensemble of those predictions.
+We define the final prediction by aggregating the posterior vectors, keeping the class with the biggest sum of the prediction.
+
+In order to get the optimal performance, we tried various sets of augmentations, and the best results were reached by using 6 images: the original image, the image flipped on the horizontal axis and 4 images, shifted of 10\% (9 pixels) of the image dimensions, for each of the 4 directions.

@@ -1,0 +1,6 @@
+\section {Dataset Specification}
+The dataset provided for the homework consists of 3542 total images, grouped into folders, of different plants belonging to one among 8 classes. The different species differ heavily from each other, having different sizes and shapes of both leaves and stems, and sometimes even in colour but mainly due to the shooting season.\\
+Not every picture was taken in the same way, in many of them the plants are in the foreground making it easier to distinguish species to the naked eye, others instead were taken from a further distance and in some cases plants are covered by shades.\\
+From a technical point of view, the first challenge is represented by an unbalance between the different classes with Species 1 and 5 severely outnumbered by the others, with 200 samples against over 500 for every other class. This led to an under the classification of said species with F1 scores way below expectations.\\
+A simple solution was to use different weights for each class \cite{class_weights}, easily obtained thanks to the $sklearn\ module$ which returns a dictionary used later during training:
+$\{0: 2.38, 1: 0.83, 2: 0.86, 3: 0.87, 4: 0.83, 5: 2.0, 6: 0.82, 7: 0.87\}$

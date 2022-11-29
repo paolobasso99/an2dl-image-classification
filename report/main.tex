@@ -1,0 +1,32 @@
+\documentclass[a4paper, 11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx, hyperref, amsmath, color, listings, float, placeins}
+
+% Prevent vertical justify
+\raggedbottom
+
+% Set page margins
+\usepackage[a4paper, left=20mm, right=20mm, bottom=23mm, top=20mm]{geometry}
+\setlength\itemsep{0px}
+
+% Font
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage[
+    backend=biber,
+]{biblatex}
+\addbibresource{references.bib}
+
+\begin{document}
+    \input{sections/title}
+    
+    \input{sections/DataSpecification}
+    \input{sections/DataAug}
+    \input{sections/Experiments}
+    \input{sections/FinalModel.tex}
+    \input{sections/Comparison.tex}
+
+    \newpage
+    \printbibliography[heading=bibintoc,title={References}]
+\end{document}

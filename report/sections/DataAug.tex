@@ -1,0 +1,6 @@
+\section{Data Augmentation}
+An essential step, especially with such a relatively small dataset, is data augmentation which was implemented in two ways:
+\begin{itemize}
+    \item {\textbf{Data Augmentation Layer}: A specific set of augmentations (Flip, Rotation, Zoom) was inserted as a layer in the model, just after the input one. In this way every batch during training was subject to random transformations, further reducing overfitting and in order to avoid enlarging the training dataset beforehand.}
+    \item {\textbf{CutMix \& MixUp}: Despite the use of the layer above, results were not outstanding on the validation set while the model was overfitting on the training set. This led to the addition of a further, and stronger image augmentation, that was performed on the entire dataset. Thanks to the $keras\_cv\ module$ we implemented $CutMix()$ \cite{cutmix} and $MixUp()$ \cite{mixup} on the entire dataset, randomly transforming each sample with one or the other strategy.} 
+\end{itemize}
