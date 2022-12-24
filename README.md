@@ -7,11 +7,11 @@ Our team arrived **first** in the challange, reaching an **accuracy of 95.48**, 
 
 ## Models details
 For more dettails about the model check the [Report](report/Report.pdf). Briefly, we used the following techniques:
-1. Transfer Learning with `ConvNeXtLarge` model
-2. CutMix and MixUp data augmentation techniques
+1. Transfer Learning with `ConvNeXtLarge` model with the "Weight Initialization" technique: the whole model was trained, in two phases. First, only the classification head with an high learning rate and then the whole model with a low learning rate.
+2. CutMix and MixUp data augmentation techniques: one or the other technique was applied to each input image
 3. Standard data augmentation (flip, rotate, zoom)
-4. Test-Time data augmentation (self-ensemble technique)
-5. Class weighting
+4. Test-Time data augmentation (self-ensemble technique) with shifts and flips
+5. Class weighting to fight the imbalance of the dataset
 
 ## Running the code
 ### Requirements
